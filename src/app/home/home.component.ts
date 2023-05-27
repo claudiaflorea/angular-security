@@ -1,0 +1,26 @@
+import { Component, Input, OnInit } from '@angular/core';
+import { AuthService } from '../auth.service';
+import { AdminService } from '../admin.service';
+
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss']
+})
+export class HomeComponent implements OnInit {
+
+  loginStatus: boolean = false;
+  isAdmin: boolean = false;
+
+  constructor(public aS: AuthService, public ad: AdminService) {}
+
+  ngOnInit(): void {
+    this.aS.isLoggedIn.subscribe((status) => {
+      this.loginStatus = status;
+    });
+    this.ad.isAdmin.subscribe((status) => {
+      this.isAdmin = status;
+    });
+  }
+  
+}
